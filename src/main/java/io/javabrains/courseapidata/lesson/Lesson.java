@@ -1,28 +1,30 @@
-package io.javabrains.courseapidata.course;
+package io.javabrains.courseapidata.lesson;
 
+import io.javabrains.courseapidata.course.Course;
 import io.javabrains.courseapidata.topic.Topic;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Course {
+public class Lesson {
 
     @Id
     private String id;
     private String name;
     private String description;
     @ManyToOne
-    private Topic topic;
+    private Course course;
 
-    public Course() {
+    public Lesson() {
     }
 
-    public Course(String id, String name, String description, String topicId) {
+    public Lesson(String id, String name, String description, String courseId, String topicId) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.topic = new Topic(topicId, "", "");
+        this.course = new Course(courseId, "", "", topicId);
     }
 
     public String getId() {
@@ -47,13 +49,14 @@ public class Course {
 
     public void setDescription(String description) {
         this.description = description;
+
     }
 
-    public Topic getTopic() {
-        return topic;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }
